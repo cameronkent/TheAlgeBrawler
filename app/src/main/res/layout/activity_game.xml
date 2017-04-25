@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_begin="272dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -41,8 +41,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="50dp" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_guideline_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="256dp" />
+
     <ImageView
-        android:id="@+id/user_hp_image"
+        android:id="@+id/user_hp_container"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
@@ -54,7 +63,7 @@
         app:srcCompat="@drawable/health_container" />
 
     <ImageView
-        android:id="@+id/com_hp_image"
+        android:id="@+id/com_hp_container"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
@@ -77,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/user_hp_image"
+        app:layout_constraintTop_toBottomOf="@+id/user_hp_container"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/knight_idle_000" />
 
@@ -94,18 +103,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/com_hp_image"
+        app:layout_constraintTop_toBottomOf="@+id/com_hp_container"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ninja_idle_000" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/horizontal_guideline_game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="256dp" />
 
     <TextView
         android:id="@+id/question_text"
@@ -204,15 +205,34 @@
     <ImageView
         android:id="@+id/health_bar"
         android:layout_width="119dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/health_bar"
         app:layout_constraintBottom_toTopOf="@+id/user_sprite_image"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline5"
         app:layout_constraintRight_toLeftOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/user_hp_text"
-        app:srcCompat="@drawable/health_bar" />
+        app:layout_constraintTop_toTopOf="@+id/user_hp_container"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    <ImageView
+        android:id="@+id/armor_bar"
+        android:layout_width="117dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/armor_bar"
+        app:layout_constraintBottom_toTopOf="@+id/ai_sprite_image"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintRight_toLeftOf="@+id/guideline5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/com_hp_container"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

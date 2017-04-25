@@ -23,7 +23,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView mUserHPView;
     private TextView mComHitsView;
     private ImageView healthBar;
-
+    private ImageView armorBar;
     private int mUserHP = 10;
     private int comDef = 50;
     private String mAnswer;
@@ -47,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
         mChoice2Button = (Button) findViewById(R.id.choice2_button);
         mChoice3Button = (Button) findViewById(R.id.choice3_button);
         healthBar = (ImageView) findViewById(R.id.health_bar);
-
+        armorBar = (ImageView) findViewById(R.id.armor_bar);
         numQuestions = mQuestionLibrary.getNumQuestions();
 
         /**Initial UI setup*/
@@ -94,7 +94,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void answerCorrect() {
-        comDef = comDef - 1;
+        comDef = comDef - 1; //remove after bars implemented
+        android.view.ViewGroup.LayoutParams layoutParams = armorBar.getLayoutParams();
+        layoutParams.width = (layoutParams.width / 10) * 9;
+        // TODO: 21/04/2017 fix height changing
+        armorBar.setLayoutParams(layoutParams);
         if (comDef == 0) {
             gameOver();
         } else {
