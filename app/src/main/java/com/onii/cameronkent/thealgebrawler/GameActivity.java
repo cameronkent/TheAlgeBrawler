@@ -2,6 +2,7 @@ package com.onii.cameronkent.thealgebrawler;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,18 +18,13 @@ public class GameActivity extends AppCompatActivity {
     private SharedPreferences SCORE_PREF;
     private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
     private TextView mQuestionView;
-    private Button mChoice1Button;
-    private Button mChoice2Button;
-    private Button mChoice3Button;
-    private TextView mUserHPView;
-    private TextView mComHitsView;
-    private ImageView healthBar;
-    private ImageView armorBar;
+    private Button mChoice1Button, mChoice2Button, mChoice3Button;
+    private ImageView healthBar, armorBar, userSprite, comSprite;
     private int mUserHP = 10;
     private int comDef = 50;
     private String mAnswer;
-    private int mQuestionNumber;
-    private int numQuestions;
+    private int mQuestionNumber, numQuestions;
+    private AnimationDrawable userAttack, comAttack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +36,6 @@ public class GameActivity extends AppCompatActivity {
         /***/
         SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
 
-        mUserHPView = (TextView) findViewById(R.id.user_hp_text);
-        mComHitsView = (TextView) findViewById(R.id.com_hits_text);
         mQuestionView = (TextView) findViewById(R.id.question_text);
         mChoice1Button = (Button) findViewById(R.id.choice1_button);
         mChoice2Button = (Button) findViewById(R.id.choice2_button);
@@ -50,9 +44,14 @@ public class GameActivity extends AppCompatActivity {
         armorBar = (ImageView) findViewById(R.id.armor_bar);
         numQuestions = mQuestionLibrary.getNumQuestions();
 
+        userSprite = (ImageView) findViewById(R.id.user_sprite_image);
+        comSprite = (ImageView) findViewById(R.id.com_sprite_image);
+        userSprite.setBackgroundResource(R.drawable.knight_attack_animation); // TODO: 2/05/2017  set to variable with sharedPref
+        comSprite.setBackgroundResource(R.drawable.ninja_attack_animation);
+        userAttack = (AnimationDrawable) userSprite.getBackground();
+        comAttack = (AnimationDrawable) comSprite.getBackground();
+
         /**Initial UI setup*/
-        mUserHPView.setText(String.valueOf(mUserHP));
-        mComHitsView.setText(String.valueOf(comDef));
         updateQuestion();
 
         /**Button1 Listener*/
@@ -94,29 +93,31 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void answerCorrect() {
-        comDef = comDef - 1; //remove after bars implemented
+        userAttack.stop();
+        userAttack.selectDrawable(0);
+        userAttack.start();
+        comDef = comDef - 1;
         android.view.ViewGroup.LayoutParams layoutParams = armorBar.getLayoutParams();
-        layoutParams.width = (layoutParams.width / 10) * 9;
-        // TODO: 21/04/2017 fix height changing
+        layoutParams.width = (layoutParams.width / (comDef + 1)) * comDef;
         armorBar.setLayoutParams(layoutParams);
         if (comDef == 0) {
             gameOver();
         } else {
-            mComHitsView.setText(String.valueOf(comDef));
             updateQuestion();
         }
     }
 
     private void answerIncorrect() {
-        mUserHP = mUserHP - 1; //remove after bars implemented
+        comAttack.stop();
+        comAttack.selectDrawable(0);
+        comAttack.start();
+        mUserHP = mUserHP - 1;
         android.view.ViewGroup.LayoutParams layoutParams = healthBar.getLayoutParams();
         layoutParams.width = (layoutParams.width / 10) * 9;
-        // TODO: 21/04/2017 fix height changing
         healthBar.setLayoutParams(layoutParams);
         if (mUserHP == 0) {
             gameOver();
         } else {
-            mUserHPView.setText(String.valueOf(mUserHP));
             updateQuestion();
         }
     }

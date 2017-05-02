@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <!--<item android:drawable="@drawable/ninja_idle_000" android:duration="100" />-->
+    <item android:drawable="@drawable/ninja_attack01" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack02" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack03" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack04" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack05" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack06" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack07" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack08" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack09" android:duration="100" />
+    <item android:drawable="@drawable/ninja_attack10" android:duration="100" />
+    <!--<item android:drawable="@drawable/ninja_idle_000" android:duration="100" />-->
+</animation-list>
