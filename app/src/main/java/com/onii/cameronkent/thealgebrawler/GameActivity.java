@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
-    private SharedPreferences SCORE_PREF;
+    private SharedPreferences SCORE_PREF, SETTINGS;
     private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
     private TextView mQuestionView;
     private Button mChoice1Button, mChoice2Button, mChoice3Button;
@@ -24,6 +24,9 @@ public class GameActivity extends AppCompatActivity {
     private int comDef = 50;
     private String mAnswer;
     private int mQuestionNumber, numQuestions;
+
+    private SoundManager soundManager;
+    private int endSound, kickSound, punchSound, slapSound, wooshSound;
     private AnimationDrawable userAttack, comAttack;
 
     @Override
@@ -33,21 +36,31 @@ public class GameActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_game);
 
-        /***/
+        /** logic*/
         SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
+        SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
+        numQuestions = mQuestionLibrary.getNumQuestions();
 
+        /**sound effects*/
+        soundManager = new SoundManager(this);
+        endSound = soundManager.addSound(R.raw.end);
+        kickSound = soundManager.addSound(R.raw.kick);
+        punchSound = soundManager.addSound(R.raw.punch);
+        slapSound = soundManager.addSound(R.raw.slap);
+        wooshSound = soundManager.addSound(R.raw.woosh);
+
+        /**ui elements*/
         mQuestionView = (TextView) findViewById(R.id.question_text);
         mChoice1Button = (Button) findViewById(R.id.choice1_button);
         mChoice2Button = (Button) findViewById(R.id.choice2_button);
         mChoice3Button = (Button) findViewById(R.id.choice3_button);
         healthBar = (ImageView) findViewById(R.id.health_bar);
         armorBar = (ImageView) findViewById(R.id.armor_bar);
-        numQuestions = mQuestionLibrary.getNumQuestions();
 
+        /**sprite animations*/
         userSprite = (ImageView) findViewById(R.id.user_sprite_image);
         comSprite = (ImageView) findViewById(R.id.com_sprite_image);
-        userSprite.setBackgroundResource(R.drawable.knight_attack_animation); // TODO: 2/05/2017  set to variable with sharedPref
-        comSprite.setBackgroundResource(R.drawable.ninja_attack_animation);
+        populateSprites();
         userAttack = (AnimationDrawable) userSprite.getBackground();
         comAttack = (AnimationDrawable) comSprite.getBackground();
 
@@ -96,6 +109,9 @@ public class GameActivity extends AppCompatActivity {
         userAttack.stop();
         userAttack.selectDrawable(0);
         userAttack.start();
+
+        soundManager.play(kickSound);
+
         comDef = comDef - 1;
         android.view.ViewGroup.LayoutParams layoutParams = armorBar.getLayoutParams();
         layoutParams.width = (layoutParams.width / (comDef + 1)) * comDef;
@@ -111,6 +127,9 @@ public class GameActivity extends AppCompatActivity {
         comAttack.stop();
         comAttack.selectDrawable(0);
         comAttack.start();
+
+        soundManager.play(kickSound);
+
         mUserHP = mUserHP - 1;
         android.view.ViewGroup.LayoutParams layoutParams = healthBar.getLayoutParams();
         layoutParams.width = (layoutParams.width / 10) * 9;
@@ -144,4 +163,41 @@ public class GameActivity extends AppCompatActivity {
         mAnswer = mQuestionLibrary.getAnswer(mQuestionNumber);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    private void populateSprites() {
+        String userSpriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
+        String comSpriteChoice = SETTINGS.getString("comSpriteChoice", "Ninja");
+        switch (userSpriteChoice) {
+            case "Knight":
+                userSprite.setBackgroundResource(R.drawable.knight_attack_animation);
+                break;
+            case "Ninja":
+                userSprite.setBackgroundResource(R.drawable.ninja_attack_animation);
+                break;
+            case "Robot":
+                userSprite.setBackgroundResource(R.drawable.robot_attack_animation);
+                break;
+            case "Ninja Girl":
+                userSprite.setBackgroundResource(R.drawable.ninja_girl_attack_animation);
+                break;
+        }
+        switch (comSpriteChoice) {
+            case "Knight":
+                comSprite.setBackgroundResource(R.drawable.knight_attack_animation);
+                break;
+            case "Ninja":
+                comSprite.setBackgroundResource(R.drawable.ninja_attack_animation);
+                break;
+            case "Robot":
+                comSprite.setBackgroundResource(R.drawable.robot_attack_animation);
+                break;
+            case "Ninja Girl":
+                comSprite.setBackgroundResource(R.drawable.ninja_girl_attack_animation);
+                break;
+        }
+    }
 }
