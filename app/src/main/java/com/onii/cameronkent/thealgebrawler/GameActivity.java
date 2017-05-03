@@ -36,12 +36,12 @@ public class GameActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_game);
 
-        /** logic*/
+        /** logic */
         SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         numQuestions = mQuestionLibrary.getNumQuestions();
 
-        /**sound effects*/
+        /** sound effects */
         soundManager = new SoundManager(this);
         endSound = soundManager.addSound(R.raw.end);
         kickSound = soundManager.addSound(R.raw.kick);
@@ -49,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
         slapSound = soundManager.addSound(R.raw.slap);
         wooshSound = soundManager.addSound(R.raw.woosh);
 
-        /**ui elements*/
+        /** ui elements */
         mQuestionView = (TextView) findViewById(R.id.question_text);
         mChoice1Button = (Button) findViewById(R.id.choice1_button);
         mChoice2Button = (Button) findViewById(R.id.choice2_button);
@@ -57,17 +57,17 @@ public class GameActivity extends AppCompatActivity {
         healthBar = (ImageView) findViewById(R.id.health_bar);
         armorBar = (ImageView) findViewById(R.id.armor_bar);
 
-        /**sprite animations*/
+        /** sprite animations */
         userSprite = (ImageView) findViewById(R.id.user_sprite_image);
         comSprite = (ImageView) findViewById(R.id.com_sprite_image);
         populateSprites();
         userAttack = (AnimationDrawable) userSprite.getBackground();
         comAttack = (AnimationDrawable) comSprite.getBackground();
 
-        /**Initial UI setup*/
+        /** Initial UI setup */
         updateQuestion();
 
-        /**Button1 Listener*/
+        /** Button1 Listener */
         mChoice1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        /**Button2 Listener*/
+        /** Button2 Listener */
         mChoice2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        /**Button3 Listener*/
+        /** Button3 Listener */
         mChoice3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +109,6 @@ public class GameActivity extends AppCompatActivity {
         userAttack.stop();
         userAttack.selectDrawable(0);
         userAttack.start();
-
         soundManager.play(kickSound);
 
         comDef = comDef - 1;
@@ -127,7 +126,6 @@ public class GameActivity extends AppCompatActivity {
         comAttack.stop();
         comAttack.selectDrawable(0);
         comAttack.start();
-
         soundManager.play(kickSound);
 
         mUserHP = mUserHP - 1;
@@ -155,7 +153,7 @@ public class GameActivity extends AppCompatActivity {
      */
     private void updateQuestion() {
         Random rand = new Random();
-        mQuestionNumber = rand.nextInt((numQuestions - 1) + 1) + 1;
+        mQuestionNumber = rand.nextInt(numQuestions - 1) + 1;
         mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
         mChoice1Button.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
         mChoice2Button.setText(mQuestionLibrary.getChoice2(mQuestionNumber));
