@@ -90,6 +90,9 @@ public class ResultActivity extends AppCompatActivity {
             case "Ninja Girl":
                 knockoutImage.setBackgroundResource(R.drawable.ninja_girl_dead_animation);
                 break;
+            case "Cowgirl":
+                knockoutImage.setBackgroundResource(R.drawable.cowgirl_dead_animation);
+                break;
         }
     }
 }

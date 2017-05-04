@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     // TODO: 20/04/2017 setup actionBar
-    
-    private Button playGameButton;
-    private Button highScoresButton;
+
+    private Button playGameButton, highScoresButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         playGameButton = (Button) findViewById(R.id.play_game_button);
         highScoresButton = (Button) findViewById(R.id.high_scores_button);
 
+        /***/
         playGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /***/
     private void viewScores() {
         Intent intent = new Intent(this, ScoresActivity.class);
         startActivity(intent);
     }
 
+    /***/
     private void startGame() {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);

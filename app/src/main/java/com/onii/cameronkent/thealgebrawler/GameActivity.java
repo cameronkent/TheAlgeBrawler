@@ -36,7 +36,7 @@ public class GameActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_game);
 
-        /** logic */
+        /** */
         SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         numQuestions = mQuestionLibrary.getNumQuestions();
@@ -59,19 +59,22 @@ public class GameActivity extends AppCompatActivity {
         bgTop = (ImageView) findViewById(R.id.bg_top);
         healthBar = (ImageView) findViewById(R.id.health_bar);
         armorBar = (ImageView) findViewById(R.id.armor_bar);
+
         populateBackground();
 
         /** sprite animations */
         userSprite = (ImageView) findViewById(R.id.user_sprite_image);
         comSprite = (ImageView) findViewById(R.id.com_sprite_image);
+
         populateSprites();
+
         userAttack = (AnimationDrawable) userSprite.getBackground();
         comAttack = (AnimationDrawable) comSprite.getBackground();
 
         /** Initial UI setup */
         updateQuestion();
 
-        /** Button1 Listener */
+        /** Button Listeners */
         mChoice1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +86,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        /** Button2 Listener */
         mChoice2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +97,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        /** Button3 Listener */
         mChoice3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +110,9 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Generate background imagery based on user preferences
+     */
     private void populateBackground() {
         String backgroundChoice = SETTINGS.getString("backgroundChoice", "Green");
         switch (backgroundChoice) {
@@ -150,6 +154,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * If user choose right answer plays animation and updates UI
+     */
     private void answerCorrect() {
         userAttack.stop();
         userAttack.selectDrawable(0);
@@ -167,6 +174,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * If user choose wrong answer plays animation and updates UI
+     */
     private void answerIncorrect() {
         comAttack.stop();
         comAttack.selectDrawable(0);
@@ -184,7 +194,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    /***/
+    /**
+     * When game over condition is met ends game goes to result
+     */
     private void gameOver() {
         comDef = 50 - comDef;
         SharedPreferences.Editor editor = SCORE_PREF.edit();
@@ -211,6 +223,9 @@ public class GameActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * Generate sprites based on user preferences
+     */
     private void populateSprites() {
         String userSpriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
         String comSpriteChoice = SETTINGS.getString("comSpriteChoice", "Ninja");
@@ -227,6 +242,9 @@ public class GameActivity extends AppCompatActivity {
             case "Ninja Girl":
                 userSprite.setBackgroundResource(R.drawable.ninja_girl_attack_animation);
                 break;
+            case "Cowgirl":
+                userSprite.setBackgroundResource(R.drawable.cowgirl_attack_animation);
+                break;
         }
         switch (comSpriteChoice) {
             case "Knight":
@@ -241,6 +259,19 @@ public class GameActivity extends AppCompatActivity {
             case "Ninja Girl":
                 comSprite.setBackgroundResource(R.drawable.ninja_girl_attack_animation);
                 break;
+            case "Cowgirl":
+                comSprite.setBackgroundResource(R.drawable.cowgirl_attack_animation);
+                break;
+
         }
     }
 }
+//1 who
+//2 is
+//3 the
+//4 production
+//5 like
+//6 look
+//7 on
+//8 the
+//9 materials
