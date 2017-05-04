@@ -7,6 +7,22 @@
     tools:context="com.onii.cameronkent.thealgebrawler.ScoresActivity">
 
     <ImageView
+        android:id="@+id/bg_scores"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.489"
+        app:srcCompat="@drawable/clouds" />
+
+    <ImageView
         android:id="@+id/scores_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
