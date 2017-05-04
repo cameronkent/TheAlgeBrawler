@@ -32,7 +32,7 @@ public class ResultActivity extends AppCompatActivity {
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
 
         knockoutImage = (ImageView) findViewById(R.id.result_image);
-        setImage(); // TODO: 3/05/2017 fix this 
+//        setImage(); // TODO: 3/05/2017 fix this
         knockoutAnimation = (AnimationDrawable) knockoutImage.getBackground();
 
         scoreView = (TextView) findViewById(R.id.new_score_num);

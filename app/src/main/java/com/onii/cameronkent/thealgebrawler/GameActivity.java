@@ -19,7 +19,7 @@ public class GameActivity extends AppCompatActivity {
     private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
     private TextView mQuestionView;
     private Button mChoice1Button, mChoice2Button, mChoice3Button;
-    private ImageView healthBar, armorBar, userSprite, comSprite;
+    private ImageView bgTop, bgBottom, healthBar, armorBar, userSprite, comSprite;
     private int mUserHP = 10;
     private int comDef = 50;
     private String mAnswer;
@@ -54,8 +54,12 @@ public class GameActivity extends AppCompatActivity {
         mChoice1Button = (Button) findViewById(R.id.choice1_button);
         mChoice2Button = (Button) findViewById(R.id.choice2_button);
         mChoice3Button = (Button) findViewById(R.id.choice3_button);
+
+        bgBottom = (ImageView) findViewById(R.id.bg_bottom);
+        bgTop = (ImageView) findViewById(R.id.bg_top);
         healthBar = (ImageView) findViewById(R.id.health_bar);
         armorBar = (ImageView) findViewById(R.id.armor_bar);
+        populateBackground();
 
         /** sprite animations */
         userSprite = (ImageView) findViewById(R.id.user_sprite_image);
@@ -103,6 +107,47 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void populateBackground() {
+        String backgroundChoice = SETTINGS.getString("backgroundChoice", "Green");
+        switch (backgroundChoice) {
+            case "Green":
+                bgBottom.setBackgroundResource(R.drawable.bg_green_bottom);
+                bgTop.setBackgroundResource(R.drawable.bg_green_top);
+                mChoice1Button.setBackgroundResource(R.drawable.bg_green_button);
+                mChoice2Button.setBackgroundResource(R.drawable.bg_green_button);
+                mChoice3Button.setBackgroundResource(R.drawable.bg_green_button);
+                break;
+            case "Desert":
+                bgBottom.setBackgroundResource(R.drawable.bg_desert_bottom);
+                bgTop.setBackgroundResource(R.drawable.bg_desert_top);
+                mChoice1Button.setBackgroundResource(R.drawable.bg_desert_button);
+                mChoice2Button.setBackgroundResource(R.drawable.bg_desert_button);
+                mChoice3Button.setBackgroundResource(R.drawable.bg_desert_button);
+                break;
+            case "Winter":
+                bgBottom.setBackgroundResource(R.drawable.bg_winter_bottom);
+                bgTop.setBackgroundResource(R.drawable.bg_winter_top);
+                mChoice1Button.setBackgroundResource(R.drawable.bg_winter_button);
+                mChoice2Button.setBackgroundResource(R.drawable.bg_winter_button);
+                mChoice3Button.setBackgroundResource(R.drawable.bg_winter_button);
+                break;
+            case "Graveyard":
+                bgBottom.setBackgroundResource(R.drawable.bg_graveyard_bottom);
+                bgTop.setBackgroundResource(R.drawable.bg_graveyard_top);
+                mChoice1Button.setBackgroundResource(R.drawable.bg_graveyard_button);
+                mChoice2Button.setBackgroundResource(R.drawable.bg_graveyard_button);
+                mChoice3Button.setBackgroundResource(R.drawable.bg_graveyard_button);
+                break;
+            case "Sci-Fi":
+                bgBottom.setBackgroundResource(R.drawable.bg_scifi_bottom);
+                bgTop.setBackgroundResource(R.drawable.bg_scifi_top);
+                mChoice1Button.setBackgroundResource(R.drawable.bg_scifi_button);
+                mChoice2Button.setBackgroundResource(R.drawable.bg_scifi_button);
+                mChoice3Button.setBackgroundResource(R.drawable.bg_scifi_button);
+                break;
+        }
     }
 
     private void answerCorrect() {
