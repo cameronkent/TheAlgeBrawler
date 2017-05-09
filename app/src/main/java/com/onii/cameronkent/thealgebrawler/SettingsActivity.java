@@ -3,14 +3,9 @@ package com.onii.cameronkent.thealgebrawler;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class SettingsActivity extends AppCompatActivity {
 

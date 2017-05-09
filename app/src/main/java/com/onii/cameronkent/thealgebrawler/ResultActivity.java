@@ -2,6 +2,7 @@ package com.onii.cameronkent.thealgebrawler;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +18,7 @@ public class ResultActivity extends AppCompatActivity {
     private SharedPreferences SCORE_PREF, SETTINGS;
     private ImageView knockoutImage;
     private AnimationDrawable knockoutAnimation;
-    private TextView scoreView;
-    private EditText nameInput;
+    private TextView scoreView, scoreText;
     private Button playButton, shareButton;
 
 
@@ -26,19 +26,32 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide(); //Hide actionBar
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_result);
 
         SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
 
+
+
         knockoutImage = (ImageView) findViewById(R.id.result_image);
-//        setImage(); // TODO: 3/05/2017 fix this
+        setImage();
         knockoutAnimation = (AnimationDrawable) knockoutImage.getBackground();
 
+        scoreText = (TextView) findViewById(R.id.new_score_text);
         scoreView = (TextView) findViewById(R.id.new_score_num);
         playButton = (Button) findViewById(R.id.play_again_button);
         shareButton = (Button) findViewById(R.id.share_button);
+
+        /** change typeface to imported font */
+        try {
+            Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
+            scoreText.setTypeface(myFont);
+            scoreView.setTypeface(myFont);
+            playButton.setTypeface(myFont);
+            shareButton.setTypeface(myFont);
+        } catch (Exception e) {
+        }
 
         // TODO: 19/04/2017 save and display multiple SCORE_PREF
 
@@ -75,11 +88,12 @@ public class ResultActivity extends AppCompatActivity {
     protected void onStart() {
         int score = SCORE_PREF.getInt("new_score", 0);
         scoreView.setText(toString().valueOf(score));
-//        knockoutAnimation.start();
+        knockoutAnimation.start();
 
         super.onStart();
     }
 
+    /** Set image for animation based on user sprite*/
     private void setImage() {
         String userSpriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
         switch (userSpriteChoice) {

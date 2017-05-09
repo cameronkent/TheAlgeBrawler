@@ -2,6 +2,7 @@ package com.onii.cameronkent.thealgebrawler;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
     private int mQuestionNumber, numQuestions;
 
     private SoundManager soundManager;
-    private int endSound, kickSound, punchSound, slapSound, wooshSound;
+    private int kickSound;
     private AnimationDrawable userAttack, comAttack;
 
     @Override
@@ -43,11 +44,7 @@ public class GameActivity extends AppCompatActivity {
 
         /** sound effects */
         soundManager = new SoundManager(this);
-        endSound = soundManager.addSound(R.raw.end);
         kickSound = soundManager.addSound(R.raw.kick);
-        punchSound = soundManager.addSound(R.raw.punch);
-        slapSound = soundManager.addSound(R.raw.slap);
-        wooshSound = soundManager.addSound(R.raw.woosh);
 
         /** ui elements */
         mQuestionView = (TextView) findViewById(R.id.question_text);
@@ -73,6 +70,15 @@ public class GameActivity extends AppCompatActivity {
 
         /** Initial UI setup */
         updateQuestion();
+        /** change typeface to imported font */
+        try {
+            Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
+            mQuestionView.setTypeface(myFont);
+            mChoice1Button.setTypeface(myFont);
+            mChoice2Button.setTypeface(myFont);
+            mChoice3Button.setTypeface(myFont);
+        } catch (Exception e) {
+        }
 
         /** Button Listeners */
         mChoice1Button.setOnClickListener(new View.OnClickListener() {
