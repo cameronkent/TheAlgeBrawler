@@ -1,15 +1,21 @@
 package com.onii.cameronkent.thealgebrawler;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.Spinner;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    Spinner userSpriteSpinner, comSpriteSpinner, themeSpinner;
+    SharedPreferences SETTINGS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,25 +23,37 @@ public class SettingsActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);
 
-        /**
-         * Populate array strings for sprites and themes */
-        String[] SPRITES = new String[5];
-        SPRITES[0] = "Knight";
-        SPRITES[1] = "Ninja";
-        SPRITES[2] = "Ninja Girl";
-        SPRITES[3] = "Robot";
-        SPRITES[4] = "Cowgirl";
+        /***/
+        SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
+        userSpriteSpinner = (Spinner) findViewById(R.id.user_sprite_spinner);
+        comSpriteSpinner = (Spinner) findViewById(R.id.com_sprite_spinner);
+        themeSpinner = (Spinner) findViewById(R.id.game_theme_spinner);
 
-        String[] THEMES = new String[5];
-        THEMES[0] = "Grassland";
-        THEMES[1] = "Winter";
-        THEMES[2] = "Graveyard";
-        THEMES[3] = "Sci-Fi";
-        THEMES[4] = "Desert";
+        /** Populate spinners with string array resources*/
+        ArrayAdapter<CharSequence> spriteAdapter = ArrayAdapter.createFromResource(this, R.array.sprites, R.layout.spinner_item);
+        spriteAdapter.setDropDownViewResource(R.layout.spinner_item);
+        userSpriteSpinner.setAdapter(spriteAdapter);
+        comSpriteSpinner.setAdapter(spriteAdapter);
 
+        ArrayAdapter<CharSequence> themeAdapter = ArrayAdapter.createFromResource(this, R.array.themes, R.layout.spinner_item);
+        themeAdapter.setDropDownViewResource(R.layout.spinner_item);
+        themeSpinner.setAdapter(themeAdapter);
+
+        /***/
+    }
+
+    private void updateSettings() {
+        String userSpriteChoice = userSpriteSpinner.getSelectedItem().toString();
+        String comSpriteChoice = comSpriteSpinner.getSelectedItem().toString();
+        String themeChoice = themeSpinner.getSelectedItem().toString();
+        SETTINGS.edit().putString("userSpriteChoice", userSpriteChoice).apply();
+        SETTINGS.edit().putString("comSpriteChoice", comSpriteChoice).apply();
+        SETTINGS.edit().putString("themeChoice", themeChoice).apply();
+    }
+
+    @Override
+    protected void onStop() {
+        updateSettings();
+        super.onStop();
     }
 }
-//
-//                WordAdapter itemsAdapter = new WordAdapter(this, words);
-//                ListView listView = (ListView) findViewById(R.id.list);
-//                listView.setAdapter(itemsAdapter);

@@ -114,8 +114,8 @@ public class GameActivity extends AppCompatActivity {
      * Generate background imagery based on user preferences
      */
     private void populateBackground() {
-        String backgroundChoice = SETTINGS.getString("backgroundChoice", "Grassland");
-        switch (backgroundChoice) {
+        String themeChoice = SETTINGS.getString("themeChoice", "Grassland");
+        switch (themeChoice) {
             case "Grassland":
                 bgBottom.setBackgroundResource(R.drawable.bg_green_bottom);
                 bgTop.setBackgroundResource(R.drawable.bg_green_top);

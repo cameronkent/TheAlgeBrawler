@@ -13,8 +13,6 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO: 20/04/2017 setup actionBar
-
     private Button playGameButton, highScoresButton;
 
     @Override
@@ -25,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
         playGameButton = (Button) findViewById(R.id.play_game_button);
         highScoresButton = (Button) findViewById(R.id.high_scores_button);
-
 
         /***/
         playGameButton.setOnClickListener(new View.OnClickListener() {
