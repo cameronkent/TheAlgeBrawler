@@ -3,5 +3,7 @@
     <string name="high_scores">High Scores</string>
     <string name="play_game">Play Game</string>
     <string name="algebrawler">AlgeBrawler</string>
+    <string name="share_score">ShareScore</string>
+    <string name="settings">Settings</string>
 
 </resources>

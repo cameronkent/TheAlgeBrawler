@@ -114,9 +114,9 @@ public class GameActivity extends AppCompatActivity {
      * Generate background imagery based on user preferences
      */
     private void populateBackground() {
-        String backgroundChoice = SETTINGS.getString("backgroundChoice", "Green");
+        String backgroundChoice = SETTINGS.getString("backgroundChoice", "Grassland");
         switch (backgroundChoice) {
-            case "Green":
+            case "Grassland":
                 bgBottom.setBackgroundResource(R.drawable.bg_green_bottom);
                 bgTop.setBackgroundResource(R.drawable.bg_green_top);
                 mChoice1Button.setBackgroundResource(R.drawable.bg_green_button);
@@ -266,12 +266,3 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 }
-//1 who
-//2 is
-//3 the
-//4 production
-//5 like
-//6 look
-//7 on
-//8 the
-//9 materials

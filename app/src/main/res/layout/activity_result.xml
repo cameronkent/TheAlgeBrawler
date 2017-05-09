@@ -109,13 +109,13 @@
         app:layout_constraintTop_toTopOf="@+id/horizontal_guideline2_result" />
 
     <Button
-        android:id="@+id/view_scores_button"
+        android:id="@+id/share_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="32dp"
-        android:text="View Scores"
+        android:text="@string/share_score"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

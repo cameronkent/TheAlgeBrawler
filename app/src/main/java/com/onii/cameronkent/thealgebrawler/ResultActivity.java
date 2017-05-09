@@ -19,13 +19,14 @@ public class ResultActivity extends AppCompatActivity {
     private AnimationDrawable knockoutAnimation;
     private TextView scoreView;
     private EditText nameInput;
-    private Button playButton, scoresButton;
+    private Button playButton, shareButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide(); //Hide actionBar
         setContentView(R.layout.activity_result);
 
         SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
@@ -37,7 +38,7 @@ public class ResultActivity extends AppCompatActivity {
 
         scoreView = (TextView) findViewById(R.id.new_score_num);
         playButton = (Button) findViewById(R.id.play_again_button);
-        scoresButton = (Button) findViewById(R.id.view_scores_button);
+        shareButton = (Button) findViewById(R.id.share_button);
 
         // TODO: 19/04/2017 save and display multiple SCORE_PREF
 
@@ -48,10 +49,10 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-        scoresButton.setOnClickListener(new View.OnClickListener() {
+        shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewScores();
+                shareScore();
             }
         });
     }
@@ -61,9 +62,13 @@ public class ResultActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void viewScores() {
-        Intent intent = new Intent(this, ScoresActivity.class);
-        startActivity(intent);
+    private void shareScore() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+//        String shareBody = "Check out my score of " + scoreView.getText() + "!";
+        intent.putExtra(Intent.EXTRA_SUBJECT, "ALGEBRAWLER!");
+        intent.putExtra(Intent.EXTRA_TEXT, "Check out my score of " + scoreView.getText() + "!");
+        startActivity(Intent.createChooser(intent, "Share via"));
     }
 
     @Override
