@@ -13,19 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements ShakeEventManager.ShakeListener {
 
     private SharedPreferences SCORE_PREF, SETTINGS;
     private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
-    private TextView mQuestionView;
+    private TextView mQuestionView, userHPText, comHPText;
     private Button mChoice1Button, mChoice2Button, mChoice3Button;
     private ImageView bgTop, bgBottom, healthBar, armorBar, userSprite, comSprite;
-    private int mUserHP = 10;
-    private int comDef = 1; /**1 for testing only 50 for default*/
+    private int userHP = 10;
+    private int comHP = 50;
     private String mAnswer;
     private int mQuestionNumber, numQuestions;
 
@@ -60,11 +58,12 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         mChoice1Button = (Button) findViewById(R.id.choice1_button);
         mChoice2Button = (Button) findViewById(R.id.choice2_button);
         mChoice3Button = (Button) findViewById(R.id.choice3_button);
-
+        userHPText = (TextView) findViewById(R.id.user_hp_text);
+        comHPText = (TextView) findViewById(R.id.com_hp_text);
         bgBottom = (ImageView) findViewById(R.id.bg_bottom);
         bgTop = (ImageView) findViewById(R.id.bg_top);
-        healthBar = (ImageView) findViewById(R.id.health_bar);
-        armorBar = (ImageView) findViewById(R.id.armor_bar);
+//        healthBar = (ImageView) findViewById(R.id.health_bar);
+//        armorBar = (ImageView) findViewById(R.id.armor_bar);
 
         populateBackground();
 
@@ -78,6 +77,9 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         comAttack = (AnimationDrawable) comSprite.getBackground();
 
         /** Initial UI setup */
+        userHPText.setText(String.valueOf(userHP));
+        comHPText.setText(String.valueOf(comHP));
+
         updateQuestion();
         /** change typeface to imported font */
         try {
@@ -86,6 +88,8 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
             mChoice1Button.setTypeface(myFont);
             mChoice2Button.setTypeface(myFont);
             mChoice3Button.setTypeface(myFont);
+            userHPText.setTypeface(myFont);
+            comHPText.setTypeface(myFont);
         } catch (Exception e) {
         }
 
@@ -178,11 +182,12 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         userAttack.start();
         soundManager.play(kickSound);
 
-        comDef = comDef - 1;
-        android.view.ViewGroup.LayoutParams layoutParams = armorBar.getLayoutParams();
-        layoutParams.width = (layoutParams.width / (comDef + 1)) * comDef;
-        armorBar.setLayoutParams(layoutParams);
-        if (comDef == 0) {
+        comHP = comHP - 1;
+//        android.view.ViewGroup.LayoutParams layoutParams = armorBar.getLayoutParams();
+//        layoutParams.width = (layoutParams.width / (comHP + 1)) * comHP;
+//        armorBar.setLayoutParams(layoutParams);
+        comHPText.setText(String.valueOf(comHP));
+        if (comHP == 0) {
             winCondition = true;
             gameOver();
         } else {
@@ -199,11 +204,12 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         comAttack.start();
         soundManager.play(kickSound);
 
-        mUserHP = mUserHP - 1;
-        android.view.ViewGroup.LayoutParams layoutParams = healthBar.getLayoutParams();
-        layoutParams.width = (layoutParams.width / 10) * 9;
-        healthBar.setLayoutParams(layoutParams);
-        if (mUserHP == 0) {
+        userHP = userHP - 1;
+//        android.view.ViewGroup.LayoutParams layoutParams = healthBar.getLayoutParams();
+//        layoutParams.width = (layoutParams.width / 10) * 9;
+//        healthBar.setLayoutParams(layoutParams);
+        userHPText.setText(String.valueOf(userHP));
+        if (userHP == 0) {
             gameOver();
         } else {
             updateQuestion();
@@ -214,9 +220,9 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
      * When game over condition is met ends game goes to result
      */
     private void gameOver() {
-        comDef = 50 - comDef;
+        comHP = 50 - comHP;
         SharedPreferences.Editor editor = SCORE_PREF.edit();
-        editor.putInt("new_score", comDef).apply();
+        editor.putInt("new_score", comHP).apply();
         if (winCondition) {
             editor.putBoolean("win_condition", true).apply();
         }
