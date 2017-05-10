@@ -26,9 +26,9 @@ public class SettingsActivity extends AppCompatActivity {
         userSpriteSpinner = (Spinner) findViewById(R.id.user_sprite_spinner);
         comSpriteSpinner = (Spinner) findViewById(R.id.com_sprite_spinner);
         themeSpinner = (Spinner) findViewById(R.id.game_theme_spinner);
-        userSpriteText = (TextView) findViewById(R.id.player_text);
-        comSpriteText = (TextView) findViewById(R.id.com_text);
-        gameThemeText = (TextView) findViewById(R.id.theme_text);
+        userSpriteText = (TextView) findViewById(R.id.player_textView);
+        comSpriteText = (TextView) findViewById(R.id.com_textView);
+        gameThemeText = (TextView) findViewById(R.id.theme_textView);
 
         /** Populate spinners with string array resources*/
         ArrayAdapter<CharSequence> spriteAdapter = ArrayAdapter.createFromResource(this, R.array.sprites, R.layout.spinner_item);
