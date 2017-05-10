@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
@@ -232,6 +234,7 @@ public class GameActivity extends AppCompatActivity {
     /**
      * Generate sprites based on user preferences
      */
+    //// TODO: 9/05/2017 fix image size crashing 
     private void populateSprites() {
         String userSpriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
         String comSpriteChoice = SETTINGS.getString("comSpriteChoice", "Ninja");
