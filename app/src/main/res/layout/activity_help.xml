@@ -4,25 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     tools:context="com.onii.cameronkent.thealgebrawler.HelpActivity">
+
+    <ImageView
+        android:id="@+id/help_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/help_guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.513"
+        app:srcCompat="@drawable/banner_downscaled" />
+
 
     <android.support.constraint.Guideline
         android:id="@+id/help_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.4" />
 
-    <ImageView
-        android:id="@+id/help_background"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/clouds" />
 
     <TextView
         android:id="@+id/help_text_one"
@@ -34,7 +39,8 @@
         android:foregroundGravity="center_vertical|center_horizontal"
         android:text="@string/help_info_one"
         android:textAlignment="center"
-        android:textSize="36sp"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/help_guideline" />
@@ -49,7 +55,8 @@
         android:foregroundGravity="center_vertical|center_horizontal"
         android:text="@string/help_info_two"
         android:textAlignment="center"
-        android:textSize="36sp"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/help_text_one" />
@@ -64,7 +71,8 @@
         android:foregroundGravity="center_vertical|center_horizontal"
         android:text="@string/help_info_three"
         android:textAlignment="center"
-        android:textSize="36sp"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/help_text_two" />
@@ -79,7 +87,8 @@
         android:foregroundGravity="center_vertical|center_horizontal"
         android:text="@string/help_info_four"
         android:textAlignment="center"
-        android:textSize="36sp"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/help_text_three" />
@@ -94,7 +103,8 @@
         android:foregroundGravity="center_vertical|center_horizontal"
         android:text="@string/help_info_five"
         android:textAlignment="center"
-        android:textSize="36sp"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/help_text_four" />
@@ -106,9 +116,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="Design and built by Cameron Kent"
+        android:text="@string/about_info"
         android:textAlignment="center"
-
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

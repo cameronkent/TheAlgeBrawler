@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     tools:context="com.onii.cameronkent.thealgebrawler.SettingsActivity">
 
     <android.support.constraint.Guideline
@@ -18,19 +19,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <ImageView
-        android:id="@+id/settings_background"
+        android:id="@+id/settings_logo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_settings"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/clouds" />
-
+        app:layout_constraintVertical_bias="0.513"
+        app:srcCompat="@drawable/banner_downscaled" />
     <Spinner
         android:id="@+id/user_sprite_spinner"
         android:layout_width="0dp"
@@ -50,6 +52,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="16dp"
+        android:textColor="@android:color/white"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/vertical_guideline_settings"
         app:layout_constraintRight_toRightOf="parent"
@@ -75,7 +78,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:text="Player"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -90,7 +93,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:text="Enemy"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -105,7 +108,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:text="Battleground"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"

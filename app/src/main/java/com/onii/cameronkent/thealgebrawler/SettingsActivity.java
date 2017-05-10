@@ -1,16 +1,19 @@
 package com.onii.cameronkent.thealgebrawler;
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class SettingsActivity extends AppCompatActivity {
 
     Spinner userSpriteSpinner, comSpriteSpinner, themeSpinner;
     SharedPreferences SETTINGS;
+    TextView userSpriteText, comSpriteText, gameThemeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,9 @@ public class SettingsActivity extends AppCompatActivity {
         userSpriteSpinner = (Spinner) findViewById(R.id.user_sprite_spinner);
         comSpriteSpinner = (Spinner) findViewById(R.id.com_sprite_spinner);
         themeSpinner = (Spinner) findViewById(R.id.game_theme_spinner);
+        userSpriteText = (TextView) findViewById(R.id.player_text);
+        comSpriteText = (TextView) findViewById(R.id.com_text);
+        gameThemeText = (TextView) findViewById(R.id.theme_text);
 
         /** Populate spinners with string array resources*/
         ArrayAdapter<CharSequence> spriteAdapter = ArrayAdapter.createFromResource(this, R.array.sprites, R.layout.spinner_item);
@@ -34,7 +40,14 @@ public class SettingsActivity extends AppCompatActivity {
         themeAdapter.setDropDownViewResource(R.layout.spinner_item);
         themeSpinner.setAdapter(themeAdapter);
 
-        /***/
+        /** change typeface to imported font */
+        try {
+            Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
+            userSpriteText.setTypeface(myFont);
+            comSpriteText.setTypeface(myFont);
+            gameThemeText.setTypeface(myFont);
+        } catch (Exception e) {
+        }
     }
 
     private void updateSettings() {
