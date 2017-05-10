@@ -8,4 +8,10 @@
         android:title="@string/settings"
         android:icon="@drawable/settings_gear"/>
 
+    <item
+        android:id="@+id/action_help"
+        app:showAsAction="always"
+        android:title="Help"
+        android:icon="@drawable/help_mark"/>
+
 </menu>

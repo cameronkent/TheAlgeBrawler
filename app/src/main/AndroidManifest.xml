@@ -24,11 +24,19 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ScoresActivity"
+            android:label="High Scores"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ResultActivity" />
+        <activity
+            android:name=".ResultActivity"
+            android:label="Game Over"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SettingsActivity"
             android:label="Settings"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".HelpActivity"
+            android:label="How to Play"
             android:parentActivityName=".MainActivity" />
     </application>
 

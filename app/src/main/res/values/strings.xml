@@ -22,4 +22,10 @@
         <item>Sci-Fi</item>
         <item>Desert</item>
     </string-array>
+
+    <string name="help_info_one">Find X in each question.</string>
+    <string name="help_info_two">Answer correct to attack.</string>
+    <string name="help_info_three">Wrong answers get you attacked.</string>
+    <string name="help_info_four">Shake phone to pass a question.</string>
+    <string name="help_info_five">Change characters and battleground in settings.</string>
 </resources>

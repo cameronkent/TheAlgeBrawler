@@ -11,12 +11,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.Random;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements ShakeEventManager.ShakeListener {
 
     private SharedPreferences SCORE_PREF, SETTINGS;
     private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
@@ -28,10 +29,11 @@ public class GameActivity extends AppCompatActivity {
     private String mAnswer;
     private int mQuestionNumber, numQuestions;
 
+    private ShakeEventManager shakeManager;
     private SoundManager soundManager;
     private int kickSound;
     private AnimationDrawable userAttack, comAttack;
-
+    private Boolean winCondition = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,11 @@ public class GameActivity extends AppCompatActivity {
         SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         numQuestions = mQuestionLibrary.getNumQuestions();
+
+        /** */
+        shakeManager = new ShakeEventManager();
+        shakeManager.setListener(this);
+        shakeManager.init(this);
 
         /** sound effects */
         soundManager = new SoundManager(this);
@@ -176,6 +183,7 @@ public class GameActivity extends AppCompatActivity {
         layoutParams.width = (layoutParams.width / (comDef + 1)) * comDef;
         armorBar.setLayoutParams(layoutParams);
         if (comDef == 0) {
+            winCondition = true;
             gameOver();
         } else {
             updateQuestion();
@@ -209,9 +217,13 @@ public class GameActivity extends AppCompatActivity {
         comDef = 50 - comDef;
         SharedPreferences.Editor editor = SCORE_PREF.edit();
         editor.putInt("new_score", comDef).apply();
+        if (winCondition) {
+            editor.putBoolean("win_condition", true).apply();
+        }
         Intent intent = new Intent(this, ResultActivity.class);
         startActivity(intent);
     }
+
 
     /**
      * Populate UI with question and options
@@ -224,11 +236,6 @@ public class GameActivity extends AppCompatActivity {
         mChoice2Button.setText(mQuestionLibrary.getChoice2(mQuestionNumber));
         mChoice3Button.setText(mQuestionLibrary.getChoice3(mQuestionNumber));
         mAnswer = mQuestionLibrary.getAnswer(mQuestionNumber);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
     /**
@@ -273,5 +280,14 @@ public class GameActivity extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    /**
+     * When user shakes runs update question
+     */
+    @Override
+    public void onShake() {
+        updateQuestion();
+        Toast.makeText(this, "New Question!", Toast.LENGTH_SHORT).show();
     }
 }

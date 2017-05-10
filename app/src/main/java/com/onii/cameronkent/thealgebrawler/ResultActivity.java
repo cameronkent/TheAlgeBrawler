@@ -20,7 +20,7 @@ public class ResultActivity extends AppCompatActivity {
     private AnimationDrawable knockoutAnimation;
     private TextView scoreView, scoreText;
     private Button playButton, shareButton;
-
+    private Boolean winCondition = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,16 +87,22 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         int score = SCORE_PREF.getInt("new_score", 0);
+        winCondition = SCORE_PREF.getBoolean("win_condition", false);
         scoreView.setText(toString().valueOf(score));
         knockoutAnimation.start();
-
         super.onStart();
     }
 
-    /** Set image for animation based on user sprite*/
+    /** Set image for animation based sprite of 'loser' */
     private void setImage() {
-        String userSpriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
-        switch (userSpriteChoice) {
+        String spriteChoice;
+        if (winCondition) {
+            spriteChoice = SETTINGS.getString("comSpriteChoice", "Ninja");
+            knockoutImage.setScaleX(-1);
+        } else {
+            spriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
+        }
+        switch (spriteChoice) {
             case "Knight":
                 knockoutImage.setBackgroundResource(R.drawable.knight_dead_animation);
                 break;
