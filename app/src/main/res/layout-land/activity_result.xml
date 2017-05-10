@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.39" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <android.support.constraint.Guideline
         android:id="@+id/vertical_guideline_result"
@@ -55,10 +55,11 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:gravity="bottom"
         android:text="New Score:"
         android:textAlignment="textEnd"
+        android:textAllCaps="true"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline2_result"
         app:layout_constraintHorizontal_bias="0.0"
@@ -74,7 +75,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:gravity="bottom"
         android:text="score"
         android:textAlignment="textStart"

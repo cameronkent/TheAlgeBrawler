@@ -25,7 +25,7 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     private Button mChoice1Button, mChoice2Button, mChoice3Button;
     private ImageView bgTop, bgBottom, healthBar, armorBar, userSprite, comSprite;
     private int mUserHP = 10;
-    private int comDef = 50;
+    private int comDef = 1; /**1 for testing only 50 for default*/
     private String mAnswer;
     private int mQuestionNumber, numQuestions;
 
@@ -223,7 +223,6 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         Intent intent = new Intent(this, ResultActivity.class);
         startActivity(intent);
     }
-
 
     /**
      * Populate UI with question and options

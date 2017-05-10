@@ -31,8 +31,7 @@ public class ResultActivity extends AppCompatActivity {
 
         SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
-
-
+        winCondition = SCORE_PREF.getBoolean("win_condition", false);
 
         knockoutImage = (ImageView) findViewById(R.id.result_image);
         setImage();
@@ -50,8 +49,8 @@ public class ResultActivity extends AppCompatActivity {
             scoreView.setTypeface(myFont);
             playButton.setTypeface(myFont);
             shareButton.setTypeface(myFont);
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
+
 
         // TODO: 19/04/2017 save and display multiple SCORE_PREF
 
@@ -87,13 +86,14 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         int score = SCORE_PREF.getInt("new_score", 0);
-        winCondition = SCORE_PREF.getBoolean("win_condition", false);
         scoreView.setText(toString().valueOf(score));
         knockoutAnimation.start();
         super.onStart();
     }
 
-    /** Set image for animation based sprite of 'loser' */
+    /**
+     * Set image for animation based from sprite of 'loser'
+     */
     private void setImage() {
         String spriteChoice;
         if (winCondition) {
