@@ -14,6 +14,7 @@ public class SettingsActivity extends AppCompatActivity {
     Spinner userSpriteSpinner, comSpriteSpinner, themeSpinner;
     SharedPreferences SETTINGS;
     TextView userSpriteText, comSpriteText, gameThemeText;
+    ArrayAdapter<CharSequence> userSpriteAdapter, comSpriteAdapter, themeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +32,15 @@ public class SettingsActivity extends AppCompatActivity {
         gameThemeText = (TextView) findViewById(R.id.theme_textView);
 
         /** Populate spinners with string array resources*/
-        ArrayAdapter<CharSequence> spriteAdapter = ArrayAdapter.createFromResource(this, R.array.sprites, R.layout.spinner_item);
-        spriteAdapter.setDropDownViewResource(R.layout.spinner_item);
-        userSpriteSpinner.setAdapter(spriteAdapter);
-        comSpriteSpinner.setAdapter(spriteAdapter);
+        userSpriteAdapter = ArrayAdapter.createFromResource(this, R.array.sprites, R.layout.spinner_item);
+        userSpriteAdapter.setDropDownViewResource(R.layout.spinner_item);
+        userSpriteSpinner.setAdapter(userSpriteAdapter);
 
-        ArrayAdapter<CharSequence> themeAdapter = ArrayAdapter.createFromResource(this, R.array.themes, R.layout.spinner_item);
+        comSpriteAdapter = ArrayAdapter.createFromResource(this, R.array.sprites, R.layout.spinner_item);
+        comSpriteAdapter.setDropDownViewResource(R.layout.spinner_item);
+        comSpriteSpinner.setAdapter(comSpriteAdapter);
+
+        themeAdapter = ArrayAdapter.createFromResource(this, R.array.themes, R.layout.spinner_item);
         themeAdapter.setDropDownViewResource(R.layout.spinner_item);
         themeSpinner.setAdapter(themeAdapter);
 
@@ -57,6 +61,22 @@ public class SettingsActivity extends AppCompatActivity {
         SETTINGS.edit().putString("userSpriteChoice", userSpriteChoice).apply();
         SETTINGS.edit().putString("comSpriteChoice", comSpriteChoice).apply();
         SETTINGS.edit().putString("themeChoice", themeChoice).apply();
+    }
+
+    @Override
+    protected void onStart() {
+        String userSpriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
+        int userSpinnerPosition = userSpriteAdapter.getPosition(userSpriteChoice);
+        userSpriteSpinner.setSelection(userSpinnerPosition);
+
+        String comSpriteChoice = SETTINGS.getString("comSpriteChoice", "Ninja");
+        int comSpinnerPosition = comSpriteAdapter.getPosition(comSpriteChoice);
+        comSpriteSpinner.setSelection(comSpinnerPosition);
+
+        String themeChoice = SETTINGS.getString("themeChoice", "Graveyard");
+        int themeSpinnerPosition = themeAdapter.getPosition(themeChoice);
+        themeSpinner.setSelection(themeSpinnerPosition);
+        super.onStart();
     }
 
     @Override

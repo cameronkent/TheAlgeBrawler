@@ -17,11 +17,11 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements ShakeEventManager.ShakeListener {
 
-    private SharedPreferences SCORE_PREF, SETTINGS;
+    private SharedPreferences SETTINGS;
     private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
     private TextView mQuestionView, userHPText, comHPText;
     private Button mChoice1Button, mChoice2Button, mChoice3Button;
-    private ImageView bgTop, bgBottom, healthBar, armorBar, userSprite, comSprite;
+    private ImageView bgTop, bgBottom, userSprite, comSprite;
     private int userHP = 10;
     private int comHP = 50;
     private String mAnswer;
@@ -31,7 +31,8 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     private SoundManager soundManager;
     private int kickSound;
     private AnimationDrawable userAttack, comAttack;
-    private Boolean winCondition = false;
+//    private Boolean winCondition = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +41,11 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         setContentView(R.layout.activity_game);
 
         /** */
-        SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
+//        SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         numQuestions = mQuestionLibrary.getNumQuestions();
 
-        /** */
+        /** Shake manager instantiation */
         shakeManager = new ShakeEventManager();
         shakeManager.setListener(this);
         shakeManager.init(this);
@@ -70,17 +71,15 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         /** sprite animations */
         userSprite = (ImageView) findViewById(R.id.user_sprite_image);
         comSprite = (ImageView) findViewById(R.id.com_sprite_image);
-
         populateSprites();
-
         userAttack = (AnimationDrawable) userSprite.getBackground();
         comAttack = (AnimationDrawable) comSprite.getBackground();
 
         /** Initial UI setup */
         userHPText.setText(String.valueOf(userHP));
         comHPText.setText(String.valueOf(comHP));
-
         updateQuestion();
+
         /** change typeface to imported font */
         try {
             Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
@@ -188,7 +187,7 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
 //        armorBar.setLayoutParams(layoutParams);
         comHPText.setText(String.valueOf(comHP));
         if (comHP == 0) {
-            winCondition = true;
+//            winCondition = true;
             gameOver();
         } else {
             updateQuestion();
@@ -220,11 +219,13 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
      * When game over condition is met ends game goes to result
      */
     private void gameOver() {
-        comHP = 50 - comHP;
-        SharedPreferences.Editor editor = SCORE_PREF.edit();
-        editor.putInt("new_score", comHP).apply();
-        if (winCondition) {
+        int score = 50 - comHP;
+        SharedPreferences.Editor editor = SETTINGS.edit();
+        editor.putInt("new_score", score).apply();
+        if (comHP == 0) {
             editor.putBoolean("win_condition", true).apply();
+        } else {
+            editor.putBoolean("win_condition", false).apply();
         }
         Intent intent = new Intent(this, ResultActivity.class);
         startActivity(intent);
