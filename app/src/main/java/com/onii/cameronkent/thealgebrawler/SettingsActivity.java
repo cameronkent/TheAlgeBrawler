@@ -19,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //set activity to fullscreen
         setContentView(R.layout.activity_settings);
 
         /***/
@@ -54,6 +54,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * updates shared preferences
+     */
     private void updateSettings() {
         String userSpriteChoice = userSpriteSpinner.getSelectedItem().toString();
         String comSpriteChoice = comSpriteSpinner.getSelectedItem().toString();
@@ -63,6 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
         SETTINGS.edit().putString("themeChoice", themeChoice).apply();
     }
 
+    /**
+     * updates spinner selection when activity starts
+     */
     @Override
     protected void onStart() {
         String userSpriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
@@ -79,6 +85,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * runs preference update when activity stops
+     */
     @Override
     protected void onStop() {
         updateSettings();

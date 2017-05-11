@@ -14,18 +14,15 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView titleText;
-    private Button playGameButton, highScoresButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //set activity to fullscreen
         setContentView(R.layout.activity_main);
 
-        titleText = (TextView) findViewById(R.id. title_text);
-        playGameButton = (Button) findViewById(R.id.play_game_button);
-        highScoresButton = (Button) findViewById(R.id.high_scores_button);
+        TextView titleText = (TextView) findViewById(R.id.title_text);
+        Button playGameButton = (Button) findViewById(R.id.play_game_button);
+        Button highScoresButton = (Button) findViewById(R.id.high_scores_button);
 
         /** change typeface to imported font */
         try {
@@ -36,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
 
-        /***/
+        /** Listeners for play game and high scores button */
         playGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * adds menu items to action bar
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * on menu selection starts new activity for settings or help
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -73,13 +76,17 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /***/
+    /**
+     * starts new high scores activity
+     */
     private void viewScores() {
         Intent intent = new Intent(this, ScoresActivity.class);
         startActivity(intent);
     }
 
-    /***/
+    /**
+     * starts new game activity
+     */
     private void startGame() {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);

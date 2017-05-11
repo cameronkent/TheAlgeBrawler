@@ -9,38 +9,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private SharedPreferences SCORE_PREF, SETTINGS;
+    private SharedPreferences SETTINGS;
     private ImageView knockoutImage;
     private AnimationDrawable knockoutAnimation;
-    private TextView scoreView, scoreText;
-    private Button playButton, shareButton;
+    private TextView scoreView;
     private Boolean winCondition = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //set activity to fullscreen
+        getSupportActionBar().hide(); //hide actionbar
         setContentView(R.layout.activity_result);
 
-//        SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
+        /** */
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         winCondition = SETTINGS.getBoolean("win_condition", false);
-
         knockoutImage = (ImageView) findViewById(R.id.result_image);
         setImage();
         knockoutAnimation = (AnimationDrawable) knockoutImage.getBackground();
-
-        scoreText = (TextView) findViewById(R.id.new_score_text);
+        TextView scoreText = (TextView) findViewById(R.id.new_score_text);
         scoreView = (TextView) findViewById(R.id.new_score_num);
-        playButton = (Button) findViewById(R.id.play_again_button);
-        shareButton = (Button) findViewById(R.id.share_button);
+        Button playButton = (Button) findViewById(R.id.play_again_button);
+        Button shareButton = (Button) findViewById(R.id.share_button);
 
         /** change typeface to imported font */
         try {
@@ -49,11 +45,11 @@ public class ResultActivity extends AppCompatActivity {
             scoreView.setTypeface(myFont);
             playButton.setTypeface(myFont);
             shareButton.setTypeface(myFont);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
 
-        // TODO: 19/04/2017 save and display multiple SCORE_PREF
-
+        /** Listeners for play and share buttons */
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,23 +65,29 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * start new game activity
+     */
     private void startGame() {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * share message to other apps / social media
+     */
     private void shareScore() {
         Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, "Check out my score of " + scoreView.getText() + " in AlgeBRAWLER!");
         intent.setType("text/plain");
-//        String shareBody = "Check out my score of " + scoreView.getText() + "!";
-        intent.putExtra(Intent.EXTRA_SUBJECT, "ALGEBRAWLER!");
-        intent.putExtra(Intent.EXTRA_TEXT, "Check out my score of " + scoreView.getText() + "!");
         startActivity(Intent.createChooser(intent, "Share via"));
     }
 
+    /**
+     * retrieve score from game and display
+     */
     @Override
     protected void onStart() {
-//        int score = SCORE_PREF.getInt("new_score", 0);
         int score = SETTINGS.getInt("new_score", 0);
         scoreView.setText(toString().valueOf(score));
         knockoutAnimation.start();

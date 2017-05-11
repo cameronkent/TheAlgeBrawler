@@ -26,12 +26,10 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     private int comHP = 50;
     private String mAnswer;
     private int mQuestionNumber, numQuestions;
-
     private ShakeEventManager shakeManager;
     private SoundManager soundManager;
     private int kickSound;
     private AnimationDrawable userAttack, comAttack;
-//    private Boolean winCondition = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,12 +180,8 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         soundManager.play(kickSound);
 
         comHP = comHP - 1;
-//        android.view.ViewGroup.LayoutParams layoutParams = armorBar.getLayoutParams();
-//        layoutParams.width = (layoutParams.width / (comHP + 1)) * comHP;
-//        armorBar.setLayoutParams(layoutParams);
         comHPText.setText(String.valueOf(comHP));
         if (comHP == 0) {
-//            winCondition = true;
             gameOver();
         } else {
             updateQuestion();
@@ -204,9 +198,6 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         soundManager.play(kickSound);
 
         userHP = userHP - 1;
-//        android.view.ViewGroup.LayoutParams layoutParams = healthBar.getLayoutParams();
-//        layoutParams.width = (layoutParams.width / 10) * 9;
-//        healthBar.setLayoutParams(layoutParams);
         userHPText.setText(String.valueOf(userHP));
         if (userHP == 0) {
             gameOver();
@@ -247,7 +238,6 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     /**
      * Generate sprites based on user preferences
      */
-    //// TODO: 9/05/2017 fix image size crashing 
     private void populateSprites() {
         String userSpriteChoice = SETTINGS.getString("userSpriteChoice", "Knight");
         String comSpriteChoice = SETTINGS.getString("comSpriteChoice", "Ninja");
@@ -284,7 +274,6 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
             case "Cowgirl":
                 comSprite.setBackgroundResource(R.drawable.cowgirl_attack_animation);
                 break;
-
         }
     }
 
@@ -295,5 +284,19 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     public void onShake() {
         updateQuestion();
         Toast.makeText(this, "New Question!", Toast.LENGTH_SHORT).show();
+    }
+
+    /** */
+    @Override
+    protected void onPause() {
+        shakeManager.deregister();
+        super.onPause();
+    }
+
+    /** */
+    @Override
+    protected void onPostResume() {
+        shakeManager.register();
+        super.onPostResume();
     }
 }

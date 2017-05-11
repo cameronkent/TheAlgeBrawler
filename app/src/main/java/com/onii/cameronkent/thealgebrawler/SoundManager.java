@@ -22,9 +22,12 @@ public class SoundManager {
         }
     }
 
+    /** adds sound to manager */
     public int addSound(int resourceID) {
         return pool.load(context, resourceID, 1);
     }
+
+    /** plays requested sound */
     public void play(int soundID) {
         pool.play(soundID, 1, 1, 1, 0, 1);
     }

@@ -3,7 +3,6 @@ package com.onii.cameronkent.thealgebrawler;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -12,7 +11,7 @@ public class HelpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //set activity to fullscreen
         setContentView(R.layout.activity_help);
 
         TextView helpOne = (TextView) findViewById(R.id.help_text_one);
