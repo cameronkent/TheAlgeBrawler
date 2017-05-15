@@ -36,36 +36,37 @@ public class QuestionLibrary {
             "7", "-4", "3", "4", "-74", "-3", "9", "4", "12", "-19"
     };
 
-    /** */
+    /** return question from library */
     public String getQuestion(int i) {
         String question = mQuestions[i];
         return question;
     }
 
-    /** */
+    /** return first option */
     public String getChoice1(int i) {
         String choice1 = mChoices[i][0];
         return choice1;
     }
 
-    /** */
+    /** return second option */
     public String getChoice2(int i) {
         String choice2 = mChoices[i][1];
         return choice2;
     }
 
-    /** */
+    /** return third option */
     public String getChoice3(int i) {
         String choice3 = mChoices[i][2];
         return choice3;
     }
 
-    /** */
+    /** return correct answer*/
     public String getAnswer(int i) {
         String answer = mAnswers[i];
         return answer;
     }
 
+    /** return length of question library */
     public int getNumQuestions() {
         return mQuestions.length;
     }

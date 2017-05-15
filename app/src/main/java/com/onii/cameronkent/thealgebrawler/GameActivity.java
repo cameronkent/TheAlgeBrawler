@@ -133,8 +133,8 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         String themeChoice = SETTINGS.getString("themeChoice", "Grassland");
         switch (themeChoice) {
             case "Grassland":
-                bgBottom.setBackgroundResource(R.drawable.bg_green_bottom);
-                bgTop.setBackgroundResource(R.drawable.bg_green_top);
+                bgBottom.setBackgroundResource(R.drawable.bg_green_bottom_dark);
+                bgTop.setBackgroundResource(R.drawable.bg_green_top_dark);
                 mChoice1Button.setBackgroundResource(R.drawable.bg_green_button);
                 mChoice2Button.setBackgroundResource(R.drawable.bg_green_button);
                 mChoice3Button.setBackgroundResource(R.drawable.bg_green_button);
@@ -295,8 +295,8 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
 
     /** */
     @Override
-    protected void onPostResume() {
+    protected void onResume() {
         shakeManager.register();
-        super.onPostResume();
+        super.onResume();
     }
 }
