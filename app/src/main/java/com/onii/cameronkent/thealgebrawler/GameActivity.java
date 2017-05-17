@@ -271,6 +271,12 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
             case "Cowgirl":
                 userSprite.setBackgroundResource(R.drawable.cowgirl_attack_animation);
                 break;
+            case "Zombie":
+                userSprite.setBackgroundResource(R.drawable.zombie_attack_animation);
+                break;
+            case "Zombie Girl":
+                userSprite.setBackgroundResource(R.drawable.zombie_girl_attack_animation);
+                break;
         }
         switch (comSpriteChoice) {
             case "Knight":
@@ -287,6 +293,12 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
                 break;
             case "Cowgirl":
                 comSprite.setBackgroundResource(R.drawable.cowgirl_attack_animation);
+                break;
+            case "Zombie":
+                comSprite.setBackgroundResource(R.drawable.zombie_attack_animation);
+                break;
+            case "Zombie Girl":
+                comSprite.setBackgroundResource(R.drawable.zombie_girl_attack_animation);
                 break;
         }
     }

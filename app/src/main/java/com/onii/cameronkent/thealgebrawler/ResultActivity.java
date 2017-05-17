@@ -142,6 +142,12 @@ public class ResultActivity extends AppCompatActivity {
             case "Cowgirl":
                 knockoutImage.setBackgroundResource(R.drawable.cowgirl_dead_animation);
                 break;
+            case "Zombie":
+                knockoutImage.setBackgroundResource(R.drawable.zombie_attack_animation);
+                break;
+            case "Zombie Girl":
+                knockoutImage.setBackgroundResource(R.drawable.zombie_girl_attack_animation);
+                break;
         }
     }
 }

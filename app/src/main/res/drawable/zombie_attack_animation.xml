@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item android:drawable="@drawable/zombie_idle" android:duration="100" />
+    <item android:drawable="@drawable/zombie_attack01" android:duration="100" />
+    <item android:drawable="@drawable/zombie_attack02" android:duration="100" />
+    <item android:drawable="@drawable/zombie_attack03" android:duration="100" />
+    <item android:drawable="@drawable/zombie_attack04" android:duration="100" />
+    <item android:drawable="@drawable/zombie_attack05" android:duration="100" />
+    <item android:drawable="@drawable/zombie_attack06" android:duration="100" />
+    <item android:drawable="@drawable/zombie_attack07" android:duration="100" />
+    <item android:drawable="@drawable/zombie_attack08" android:duration="100" />
+    <item android:drawable="@drawable/zombie_girl_idle" android:duration="100" />
+</animation-list>
