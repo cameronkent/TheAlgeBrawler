@@ -110,6 +110,22 @@
         app:layout_constraintTop_toBottomOf="@+id/help_text_four" />
 
     <TextView
+        android:id="@+id/help_text_six"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        android:text="@string/help_info_six"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/help_text_five" />
+
+    <TextView
         android:id="@+id/about_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

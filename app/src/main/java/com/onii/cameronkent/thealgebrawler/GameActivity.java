@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     private TextView mQuestionView, userHPText, comHPText;
     private Button mChoice1Button, mChoice2Button, mChoice3Button;
     private ImageView bgTop, bgBottom, userSprite, comSprite;
-    private int userHP = 10;
+    private int userHP;
     private int comHP = 50;
     private String mAnswer;
     private int mQuestionNumber, numQuestions;
@@ -30,6 +31,7 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     private SoundManager soundManager;
     private int kickSound;
     private AnimationDrawable userAttack, comAttack;
+    private Boolean soundEffects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +41,10 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         setContentView(R.layout.activity_game);
 
         /** */
-//        SCORE_PREF = getSharedPreferences("SCORE_DATA", MODE_PRIVATE);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         numQuestions = mQuestionLibrary.getNumQuestions();
+        soundEffects = SETTINGS.getBoolean("soundChoice", true);
+        setDifficulty();
 
         /** Shake manager instantiation */
         shakeManager = new ShakeEventManager();
@@ -49,8 +52,10 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         shakeManager.init(this);
 
         /** sound effects */
-        soundManager = new SoundManager(this);
-        kickSound = soundManager.addSound(R.raw.kick);
+        if (soundEffects) {
+            soundManager = new SoundManager(this);
+            kickSound = soundManager.addSound(R.raw.kick);
+        }
 
         /** ui elements */
         mQuestionView = (TextView) findViewById(R.id.question_text);
@@ -61,8 +66,6 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         comHPText = (TextView) findViewById(R.id.com_hp_text);
         bgBottom = (ImageView) findViewById(R.id.bg_bottom);
         bgTop = (ImageView) findViewById(R.id.bg_top);
-//        healthBar = (ImageView) findViewById(R.id.health_bar);
-//        armorBar = (ImageView) findViewById(R.id.armor_bar);
 
         populateBackground();
 
@@ -127,6 +130,32 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     }
 
     /**
+     * turns sound effects on/off based on settings
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    /**
+     * Sets user HP based on difficulty setting
+     */
+    private void setDifficulty() {
+        String difficulty = SETTINGS.getString("difficultyChoice", "Medium");
+        switch (difficulty) {
+            case "Easy":
+                userHP = 15;
+                break;
+            case "Medium":
+                userHP = 10;
+                break;
+            case "Hard":
+                userHP = 5;
+                break;
+        }
+    }
+
+    /**
      * Generate background imagery based on user preferences
      */
     private void populateBackground() {
@@ -177,7 +206,8 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         userAttack.stop();
         userAttack.selectDrawable(0);
         userAttack.start();
-        soundManager.play(kickSound);
+        if (soundEffects)
+            soundManager.play(kickSound);
 
         comHP = comHP - 1;
         comHPText.setText(String.valueOf(comHP));
@@ -195,7 +225,8 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         comAttack.stop();
         comAttack.selectDrawable(0);
         comAttack.start();
-        soundManager.play(kickSound);
+        if (soundEffects)
+            soundManager.play(kickSound);
 
         userHP = userHP - 1;
         userHPText.setText(String.valueOf(userHP));
@@ -283,7 +314,6 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     @Override
     public void onShake() {
         updateQuestion();
-        Toast.makeText(this, "New Question!", Toast.LENGTH_SHORT).show();
     }
 
     /** */

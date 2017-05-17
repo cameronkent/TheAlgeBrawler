@@ -23,11 +23,18 @@
         <item>Desert</item>
     </string-array>
 
+    <string-array name="difficulties">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+
     <string name="help_info_one">Find X in each question.</string>
     <string name="help_info_two">Answer correct to attack.</string>
     <string name="help_info_three">Wrong answers get you attacked.</string>
     <string name="help_info_four">Shake phone to pass a question.</string>
     <string name="help_info_five">Change characters and battleground in settings.</string>
+    <string name="help_info_six">Difficulty determines player HP</string>
     <string name="about_info">Design and built by Cameron Kent</string>
 
     <string name="create_table">CREATE TABLE %1$s (_id INTEGER PRIMARY KEY, %2$s TEXT)</string>
