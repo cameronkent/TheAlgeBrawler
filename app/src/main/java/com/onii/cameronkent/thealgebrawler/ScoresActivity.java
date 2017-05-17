@@ -20,7 +20,6 @@ public class ScoresActivity extends AppCompatActivity {
 
     private ScoresDAOHelper scoresDAO;
     private LinearLayout scoreLayout;
-    private TextView scoreText;
     private ArrayList<Integer> scoreList;
 
     @Override
@@ -35,7 +34,6 @@ public class ScoresActivity extends AppCompatActivity {
 
         getScoresDB();
         displayScores();
-
     }
 
     /**
@@ -51,6 +49,7 @@ public class ScoresActivity extends AppCompatActivity {
         for (int i = 0; i < scoreList.size(); i++) {
             System.out.println(scoreList.get(i));
         }
+        cursor.close();
     }
 
     /**
@@ -65,17 +64,19 @@ public class ScoresActivity extends AppCompatActivity {
             scoreText.setTextColor(Color.WHITE);
             scoreText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
             scoreText.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-            /** change typeface to imported font */
             try {
                 Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
                 scoreText.setTypeface(myFont);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             scoreText.setText(String.valueOf(scoreList.get(i)));
             scoreLayout.addView(scoreText);
         }
     }
 
+    /**
+     * Closes db on activity end
+     */
     @Override
     protected void onDestroy() {
         scoresDAO.close();

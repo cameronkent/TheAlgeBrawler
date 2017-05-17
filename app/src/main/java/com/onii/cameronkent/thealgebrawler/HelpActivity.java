@@ -21,7 +21,7 @@ public class HelpActivity extends AppCompatActivity {
         TextView helpFive = (TextView) findViewById(R.id.help_text_five);
         TextView helpSix = (TextView) findViewById(R.id.help_text_six);
 
-        /** change typeface to imported font */
+        /* Change typeface to imported font */
         try {
             Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
             helpOne.setTypeface(myFont);
@@ -30,7 +30,7 @@ public class HelpActivity extends AppCompatActivity {
             helpFour.setTypeface(myFont);
             helpFive.setTypeface(myFont);
             helpSix.setTypeface(myFont);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }

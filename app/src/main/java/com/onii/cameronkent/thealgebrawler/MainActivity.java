@@ -24,16 +24,16 @@ public class MainActivity extends AppCompatActivity {
         Button playGameButton = (Button) findViewById(R.id.play_game_button);
         Button highScoresButton = (Button) findViewById(R.id.high_scores_button);
 
-        /** change typeface to imported font */
+        /* Change typeface to imported font */
         try {
             Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
             playGameButton.setTypeface(myFont);
             highScoresButton.setTypeface(myFont);
             titleText.setTypeface(myFont);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
-        /** Listeners for play game and high scores button */
+        /* Listeners for play game and high scores button */
         playGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * adds menu items to action bar
+     * Adds menu items to action bar
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

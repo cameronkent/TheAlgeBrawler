@@ -10,26 +10,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements ShakeEventManager.ShakeListener {
 
     private SharedPreferences SETTINGS;
-    private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
+    private QuestionLibrary mQuestionLibrary;
     private TextView mQuestionView, userHPText, comHPText;
     private Button mChoice1Button, mChoice2Button, mChoice3Button;
     private ImageView bgTop, bgBottom, userSprite, comSprite;
-    private int userHP;
-    private int comHP = 50;
+    private int userHP,comHP = 50, numQuestions, kickSound;
     private String mAnswer;
-    private int mQuestionNumber, numQuestions;
     private ShakeEventManager shakeManager;
     private SoundManager soundManager;
-    private int kickSound;
     private AnimationDrawable userAttack, comAttack;
     private Boolean soundEffects;
 
@@ -40,24 +34,24 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         getSupportActionBar().hide();
         setContentView(R.layout.activity_game);
 
-        /** */
+        mQuestionLibrary = new QuestionLibrary();
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         numQuestions = mQuestionLibrary.getNumQuestions();
         soundEffects = SETTINGS.getBoolean("soundChoice", true);
         setDifficulty();
 
-        /** Shake manager instantiation */
+        /* Shake manager instantiation */
         shakeManager = new ShakeEventManager();
         shakeManager.setListener(this);
         shakeManager.init(this);
 
-        /** sound effects */
+        /* Import sound effects */
         if (soundEffects) {
             soundManager = new SoundManager(this);
             kickSound = soundManager.addSound(R.raw.kick);
         }
 
-        /** ui elements */
+        /* Initial UI setup */
         mQuestionView = (TextView) findViewById(R.id.question_text);
         mChoice1Button = (Button) findViewById(R.id.choice1_button);
         mChoice2Button = (Button) findViewById(R.id.choice2_button);
@@ -66,22 +60,19 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
         comHPText = (TextView) findViewById(R.id.com_hp_text);
         bgBottom = (ImageView) findViewById(R.id.bg_bottom);
         bgTop = (ImageView) findViewById(R.id.bg_top);
+        userHPText.setText(String.valueOf(userHP));
+        comHPText.setText(String.valueOf(comHP));
+        updateQuestion();        populateBackground();
 
-        populateBackground();
-
-        /** sprite animations */
+        /* Load sprite animations */
         userSprite = (ImageView) findViewById(R.id.user_sprite_image);
         comSprite = (ImageView) findViewById(R.id.com_sprite_image);
         populateSprites();
         userAttack = (AnimationDrawable) userSprite.getBackground();
         comAttack = (AnimationDrawable) comSprite.getBackground();
 
-        /** Initial UI setup */
-        userHPText.setText(String.valueOf(userHP));
-        comHPText.setText(String.valueOf(comHP));
-        updateQuestion();
 
-        /** change typeface to imported font */
+        /* Change typeface to imported font */
         try {
             Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
             mQuestionView.setTypeface(myFont);
@@ -90,10 +81,10 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
             mChoice3Button.setTypeface(myFont);
             userHPText.setTypeface(myFont);
             comHPText.setTypeface(myFont);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
-        /** Button Listeners */
+        /* Button Listeners */
         mChoice1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,15 +121,7 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
     }
 
     /**
-     * turns sound effects on/off based on settings
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    /**
-     * Sets user HP based on difficulty setting
+     * Set user HP based on difficulty setting
      */
     private void setDifficulty() {
         String difficulty = SETTINGS.getString("difficultyChoice", "Medium");
@@ -258,7 +241,7 @@ public class GameActivity extends AppCompatActivity implements ShakeEventManager
      */
     private void updateQuestion() {
         Random rand = new Random();
-        mQuestionNumber = rand.nextInt(numQuestions - 1) + 1;
+        int mQuestionNumber = rand.nextInt(numQuestions - 1) + 1;
         mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
         mChoice1Button.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
         mChoice2Button.setText(mQuestionLibrary.getChoice2(mQuestionNumber));

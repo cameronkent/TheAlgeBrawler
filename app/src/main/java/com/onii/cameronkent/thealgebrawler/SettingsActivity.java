@@ -24,7 +24,6 @@ public class SettingsActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //set activity to fullscreen
         setContentView(R.layout.activity_settings);
 
-        /***/
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         userSpriteSpinner = (Spinner) findViewById(R.id.user_sprite_spinner);
         comSpriteSpinner = (Spinner) findViewById(R.id.com_sprite_spinner);
@@ -37,7 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
         difficultyText = (TextView) findViewById(R.id.difficulty_textView);
         soundText = (TextView) findViewById(R.id.sound_textView);
 
-        /** Populate spinners with string array resources*/
+        /* Populate spinners with string array resources */
         userSpriteAdapter = ArrayAdapter.createFromResource(this, R.array.sprites, R.layout.spinner_item);
         userSpriteAdapter.setDropDownViewResource(R.layout.spinner_item);
         userSpriteSpinner.setAdapter(userSpriteAdapter);
@@ -54,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
         difficultyAdapter.setDropDownViewResource(R.layout.spinner_item);
         difficultySpinner.setAdapter(difficultyAdapter);
 
-        /** change typeface to imported font */
+        /* Change typeface to imported font */
         try {
             Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
             userSpriteText.setTypeface(myFont);
@@ -62,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
             gameThemeText.setTypeface(myFont);
             difficultyText.setTypeface(myFont);
             soundText.setTypeface(myFont);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

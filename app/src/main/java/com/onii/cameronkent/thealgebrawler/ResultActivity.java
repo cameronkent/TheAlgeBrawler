@@ -30,7 +30,6 @@ public class ResultActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //set activity to fullscreen
         setContentView(R.layout.activity_result);
 
-        /** */
         scoresDAO = new ScoresDAOHelper(this);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         winCondition = SETTINGS.getBoolean("win_condition", false);
@@ -42,18 +41,18 @@ public class ResultActivity extends AppCompatActivity {
         Button playButton = (Button) findViewById(R.id.play_again_button);
         Button shareButton = (Button) findViewById(R.id.share_button);
 
-        /** change typeface to imported font */
+        /* Change typeface to imported font */
         try {
             Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/pink-kangaroo.regular.ttf");
             scoreText.setTypeface(myFont);
             scoreView.setTypeface(myFont);
             playButton.setTypeface(myFont);
             shareButton.setTypeface(myFont);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
 
-        /** Listeners for play and share buttons */
+        /* Listeners for play and share buttons */
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,10 +68,12 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
-    /***/
-    private void addScores() {
+    /**
+     * Save new score rto database
+     */
+    private void addScore() {
         SQLiteDatabase db = scoresDAO.getWritableDatabase();
-        ContentValues value= new ContentValues();
+        ContentValues value = new ContentValues();
         value.put("value", score);
         db.insert("scores", null, value);
     }
@@ -101,9 +102,9 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         score = SETTINGS.getInt("new_score", 0);
-        scoreView.setText(toString().valueOf(score));
+        scoreView.setText(String.valueOf(score));
         knockoutAnimation.start();
-        addScores();
+        addScore();
         super.onStart();
     }
 

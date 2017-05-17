@@ -38,32 +38,27 @@ public class QuestionLibrary {
 
     /** return question from library */
     public String getQuestion(int i) {
-        String question = mQuestions[i];
-        return question;
+        return mQuestions[i];
     }
 
     /** return first option */
     public String getChoice1(int i) {
-        String choice1 = mChoices[i][0];
-        return choice1;
+        return mChoices[i][0];
     }
 
     /** return second option */
     public String getChoice2(int i) {
-        String choice2 = mChoices[i][1];
-        return choice2;
+        return mChoices[i][1];
     }
 
     /** return third option */
     public String getChoice3(int i) {
-        String choice3 = mChoices[i][2];
-        return choice3;
+        return mChoices[i][2];
     }
 
     /** return correct answer*/
     public String getAnswer(int i) {
-        String answer = mAnswers[i];
-        return answer;
+        return mAnswers[i];
     }
 
     /** return length of question library */
