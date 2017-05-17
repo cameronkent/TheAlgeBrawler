@@ -1,7 +1,9 @@
 package com.onii.cameronkent.thealgebrawler;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,15 +21,17 @@ public class ResultActivity extends AppCompatActivity {
     private AnimationDrawable knockoutAnimation;
     private TextView scoreView;
     private Boolean winCondition = false;
+    private ScoresDAOHelper scoresDAO;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //set activity to fullscreen
-        getSupportActionBar().hide(); //hide actionbar
         setContentView(R.layout.activity_result);
 
         /** */
+        scoresDAO = new ScoresDAOHelper(this);
         SETTINGS = getSharedPreferences("SETTINGS", MODE_PRIVATE);
         winCondition = SETTINGS.getBoolean("win_condition", false);
         knockoutImage = (ImageView) findViewById(R.id.result_image);
@@ -65,6 +69,14 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
+    /***/
+    private void addScores() {
+        SQLiteDatabase db = scoresDAO.getWritableDatabase();
+        ContentValues value= new ContentValues();
+        value.put("value", score);
+        db.insert("scores", null, value);
+    }
+
     /**
      * start new game activity
      */
@@ -88,10 +100,18 @@ public class ResultActivity extends AppCompatActivity {
      */
     @Override
     protected void onStart() {
-        int score = SETTINGS.getInt("new_score", 0);
+        score = SETTINGS.getInt("new_score", 0);
         scoreView.setText(toString().valueOf(score));
         knockoutAnimation.start();
+        addScores();
         super.onStart();
+    }
+
+    /***/
+    @Override
+    protected void onDestroy() {
+        scoresDAO.close();
+        super.onDestroy();
     }
 
     /**

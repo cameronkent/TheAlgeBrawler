@@ -29,4 +29,7 @@
     <string name="help_info_four">Shake phone to pass a question.</string>
     <string name="help_info_five">Change characters and battleground in settings.</string>
     <string name="about_info">Design and built by Cameron Kent</string>
+
+    <string name="create_table">CREATE TABLE %1$s (_id INTEGER PRIMARY KEY, %2$s TEXT)</string>
+    <string name="delete_table">DROP TABLE IF EXISTS %1$s</string>
 </resources>
