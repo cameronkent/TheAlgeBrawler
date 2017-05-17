@@ -13,11 +13,15 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class ScoresActivity extends AppCompatActivity {
 
     private ScoresDAOHelper scoresDAO;
     private LinearLayout scoreLayout;
     private TextView scoreText;
+    private ArrayList<Integer> scoreList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +31,39 @@ public class ScoresActivity extends AppCompatActivity {
 
         scoresDAO = new ScoresDAOHelper(this);
         scoreLayout = (LinearLayout) findViewById(R.id.score_text_layout);
+        scoreList = new ArrayList<>();
 
-        updateScores();
+        getScoresDB();
+        displayScores();
 
     }
 
-    private void updateScores() {
-        TextView scoreText;
+    /**
+     * Retrieve scores from the database store in array
+     */
+    private void getScoresDB() {
         Cursor cursor = scoresDAO.getReadableDatabase().rawQuery("select * from scores", null);
         while (cursor.moveToNext()) {
+            scoreList.add(Integer.valueOf(cursor.getString(1)));
+        }
+        Collections.sort(scoreList);
+        Collections.reverse(scoreList);
+        for (int i = 0; i < scoreList.size(); i++) {
+            System.out.println(scoreList.get(i));
+        }
+    }
+
+    /**
+     * display the top 5 scores from array
+     */
+    private void displayScores() {
+        System.out.println("displayScores begin");
+        TextView scoreText;
+        for (int i = 0; i < 5; i++) {
             scoreText = new TextView(this);
             scoreText.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             scoreText.setTextColor(Color.WHITE);
-            scoreText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            scoreText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
             scoreText.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
             /** change typeface to imported font */
             try {
@@ -47,13 +71,9 @@ public class ScoresActivity extends AppCompatActivity {
                 scoreText.setTypeface(myFont);
             } catch (Exception e) {
             }
-
-            scoreText.setText(cursor.getString(1));
+            scoreText.setText(String.valueOf(scoreList.get(i)));
             scoreLayout.addView(scoreText);
         }
-        cursor.close();
-
-
     }
 
     @Override
